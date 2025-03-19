@@ -5,17 +5,22 @@ import (
 	"time"
 )
 
-func main() {
-	startDate := time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC)
-	endDate := time.Date(2025, 8, 31, 0, 0, 0, 0, time.UTC)
-
-	var dates []string
-
-	for d := startDate; !d.After(endDate); d = d.AddDate(0, 0, 1) {
-		dates = append(dates, d.Format("Monday, 02 January 2006"))
+func generarCalendario(inicio, fin time.Time) []string {
+	var fechas []string
+	for d := inicio; !d.After(fin); d = d.AddDate(0, 0, 1) {
+		fechas = append(fechas, d.Format("Monday, 02 January 2006"))
 	}
+	return fechas
+}
 
-	for _, date := range dates {
-		fmt.Println(date)
+func main() {
+	fechaInicio := time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC)
+	fechaFin := time.Date(2025, 8, 31, 0, 0, 0, 0, time.UTC)
+
+	fechas := generarCalendario(fechaInicio, fechaFin)
+
+	fmt.Println("Calendario de junio a agosto de 2025:")
+	for _, fecha := range fechas {
+		fmt.Println(fecha)
 	}
 }
